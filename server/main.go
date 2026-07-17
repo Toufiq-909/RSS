@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"server/database"
-
-	"github.com/gin-gonic/gin"
+"server/routes"
+	
 	"github.com/joho/godotenv"
 )
 
@@ -14,12 +14,7 @@ func main(){
 		log.Fatal("Env failed")
 	}
 	database.Connect()
-	router:=gin.Default()
-	router.GET("/hello",func(c *gin.Context){
-		c.JSON(200,gin.H{
-			"msg":"hello my nga",
-		})
-
-	})
+	router:=routes.Router()
+	
 	router.Run()
 }
