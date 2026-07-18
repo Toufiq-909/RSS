@@ -1,11 +1,14 @@
 package handlers
 
 import (
+	
 	"time"
 
 	"os"
 
 	"github.com/gin-gonic/gin"
+
+	"golang.org/x/crypto/bcrypt"
 
 	"server/database"
 
@@ -29,6 +32,10 @@ func Signup(c *gin.Context) {
 		c.JSON(409,gin.H{"error":"Name already Exists"})
 		return
 	}
+	bytes,_:=bcrypt.GenerateFromPassword([]byte(user.Password),14)
+	
+	user.Password=string(bytes)
+
 	result:=database.DB.Create(&user)
 	if result.Error != nil {
         c.JSON(500, gin.H{"error": result.Error.Error()})
@@ -67,3 +74,4 @@ func Search(c *gin.Context) {
 	}
 
 }
+

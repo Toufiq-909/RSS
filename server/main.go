@@ -14,6 +14,7 @@ func main(){
 		log.Fatal("Env failed")
 	}
 	database.Connect()
+	database.Redis()
 	router:=routes.Router()
 	
 	router.Run()
