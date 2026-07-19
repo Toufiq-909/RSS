@@ -17,5 +17,5 @@ func main(){
 	database.Redis()
 	router:=routes.Router()
 	
-	router.Run()
+	router.Run("localhost:8080")
 }

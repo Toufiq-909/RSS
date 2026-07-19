@@ -1,8 +1,6 @@
 package routes
 
 import (
-
-
 	"github.com/gin-gonic/gin"
 
 	"server/handlers"
@@ -13,7 +11,9 @@ func Router() *gin.Engine{
 	router.POST("/Signup", handlers.Signup)
 	router.GET("/user",handlers.Search)
     router.POST("/logout",handlers.Logout)
+	router.POST("/login",handlers.Login)
 	router.Use(middleware.Authorize())
+	router.DELETE("/delete",handlers.DeleteUser)
 	
 	return router
 }
