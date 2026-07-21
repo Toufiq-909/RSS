@@ -1,10 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"server/database"
-"server/routes"
-	
+	"server/routes"
+
 	"github.com/joho/godotenv"
 )
 
@@ -15,7 +16,9 @@ func main(){
 	}
 	database.Connect()
 	database.Redis()
+	go database.Sync()
 	router:=routes.Router()
+	fmt.Println("running")
 	
 	router.Run("localhost:8080")
 }

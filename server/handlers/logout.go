@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"context"
-	"log"
+	
 	"server/database"
+	
 	"time"
-	"server/models"
 
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
 )
 
 func Logout(c *gin.Context) {
@@ -16,19 +17,24 @@ func Logout(c *gin.Context) {
 
     ctx, cancel := context.WithTimeout(detachedCtx, 2 * time.Second)
     defer cancel()
-	var token models.Token
-	if err:=c.ShouldBindJSON(&token);err!=nil || token.Val==""{
-		c.JSON(400,gin.H{"error":err})
+	token,_:=c.Get("token")
+	if token==""{
+		c.JSON(400,gin.H{"error":"bad request"})
 		return
 
 	}
-	log.Println(token.Val)
-	_,err:=database.Client.RPush(ctx,"blacklist",token.Val).Result()
+	
+	database.Client.XAdd(ctx,&redis.XAddArgs{
+		Stream:"blacklistTokens",
+		Values: map[string]interface{}{"token": token},
+		ID:"*",
+	})
+	_,err:=database.Client.RPush(ctx,"blacklist",token).Result()
 	if err!=nil {
 		c.JSON(500,gin.H{"error":err})
 		return
 	} else {
-		log.Println(database.Client.LRange(ctx,"blacklist",0,-1))
+	
 		c.JSON(200,gin.H{"success":"Logout successfully"})
 		return
 	}

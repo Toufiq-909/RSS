@@ -25,6 +25,7 @@ func Authorize() gin.HandlerFunc {
 				return
 			} else {
 				ctx:=context.Background()
+				c.Set("token",token.Val)
 
 				index,err:=database.Client.LPos(ctx,"blacklist",token.Val,redis.LPosArgs{}).Result()
 
@@ -48,6 +49,7 @@ var r string
 token.Get("userId",&r)
 				log.Println(r)
 				c.Set("userId",r)
+				
 				c.Next()
 
 				

@@ -26,6 +26,10 @@ func main(){
     if err != nil {
         log.Fatal("Migration failed:", err)
     }
+	err = db.AutoMigrate(&models.Token{})
+    if err != nil {
+        log.Fatal("Migration failed:", err)
+    }
 
     log.Println("Migration completed successfully! Tables are ready.")
 
