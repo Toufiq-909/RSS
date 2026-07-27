@@ -13,21 +13,20 @@ import (
 
 	"aidanwoods.dev/go-paseto"
 
-	"server/models"
 )
 
 func Authorize() gin.HandlerFunc {
         return func(c*gin.Context) {
 
-			var token models.Token
-			if err:=c.ShouldBindJSON(&token); err!=nil {
-				c.AbortWithStatusJSON(400, gin.H{"error": err})
+			token:=c.GetHeader("Authorization")
+			if token=="" {
+				c.AbortWithStatusJSON(400, gin.H{"error": "Invalid Authorization Token"})
 				return
 			} else {
 				ctx:=context.Background()
-				c.Set("token",token.Val)
+				c.Set("token",token)
 
-				index,err:=database.Client.LPos(ctx,"blacklist",token.Val,redis.LPosArgs{}).Result()
+				index,err:=database.Client.LPos(ctx,"blacklist",token,redis.LPosArgs{}).Result()
 
 				if index>=0&&err==nil {
 					c.AbortWithStatusJSON(401, gin.H{"error": "Invalid token"})
@@ -38,7 +37,7 @@ func Authorize() gin.HandlerFunc {
 
 					parser:=paseto.NewParser()
 				key,_:=paseto.V4SymmetricKeyFromHex(os.Getenv("secret"))
-				token,err:=parser.ParseV4Local(key,token.Val,nil)
+				token,err:=parser.ParseV4Local(key,token,nil)
 				
 if err != nil {
 	c.AbortWithStatusJSON(401, gin.H{"error": "Unauthorized"})
