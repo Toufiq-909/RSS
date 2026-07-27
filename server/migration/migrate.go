@@ -30,6 +30,19 @@ func main(){
     if err != nil {
         log.Fatal("Migration failed:", err)
     }
+	err=db.AutoMigrate(&models.Feed{})
+	if err !=nil {
+		log.Fatal("Migration Failed :",err)
+	}
+	err=db.AutoMigrate(&models.UserFeed{})
+	if err !=nil {
+		log.Fatal("Migration Failed :",err)
+	}
+	err=db.AutoMigrate(&models.Guid{})
+	if err !=nil {
+		log.Fatal("Migration Failed :",err)
+	}
+
 
     log.Println("Migration completed successfully! Tables are ready.")
 
