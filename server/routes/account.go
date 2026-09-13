@@ -14,6 +14,7 @@ func Router() *gin.Engine{
 	router.Use(middleware.Authorize())
 	router.POST("/logout",handlers.Logout)
 	router.DELETE("/delete",handlers.DeleteUser)
+	router.POST("/feed",handlers.Addfeed)
 	
 	return router
 }

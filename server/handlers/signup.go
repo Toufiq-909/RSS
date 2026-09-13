@@ -45,7 +45,7 @@ func Signup(c *gin.Context) {
      
 	token.SetIssuedAt(time.Now())
 	token.SetNotBefore(time.Now())
-	token.SetExpiration(time.Now().Add(4*time.Minute))
+	token.SetExpiration(time.Now().Add(40*time.Minute))
 	token.SetString("userId",user.Name)
 	secret := os.Getenv("secret")
 	key,_:=paseto.V4SymmetricKeyFromHex(secret)
