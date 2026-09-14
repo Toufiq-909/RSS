@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"server/models"
-
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
