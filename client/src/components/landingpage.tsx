@@ -25,6 +25,6 @@ export default function Home() {
 
     <section className="why-section" id="why-rssfeed"><div><p className="eyebrow"><span /> Made for intentional reading</p><h2>Why RSSFeed?</h2></div><div className="reasons"><p><b>No algorithms.</b> Your feed is shaped only by what you choose.</p><p><b>Completely yours.</b> Follow niche blogs, major outlets, or both.</p><p><b>Simply focused.</b> Less noise, more of what matters to you.</p></div></section>
     <section className="final-section" id="get-started"><p className="eyebrow"><span /> Your attention is valuable</p><h2>Your feed.<br /><em>Your rules.</em></h2><Link className="primary-button" to="/feed">Get started for free <Arrow /></Link></section>
-    <footer><a className="brand" href="#top"><RssMark /> rssfeed</a><p>© 2026 RSSFeed. Made for better reading.</p><div><a href="#top">Privacy</a><a href="#top">Terms</a></div></footer>
+    <footer><a className="brand" href="#top"><RssMark /> rssfeed</a><p>© 2026 RSSFeed. Made for better reading.</p><div className="footer-tagline">Read intentionally.</div></footer>
   </main>
 }

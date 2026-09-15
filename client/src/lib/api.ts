@@ -19,3 +19,7 @@ export function authenticate(path: "/login" | "/Signup", name: string, password:
 export function createFeed(name: string, feed: string, url: string, token: string) {
   return request<{ success?: string; msg?: string }>("/feed", { method: "POST", headers: { "Content-Type": "application/json", Authorization: token }, body: JSON.stringify({ Name: name, Feed: feed, Url: url }) })
 }
+
+export function logout(token: string) {
+  return request<{ success?: string }>("/logout", { method: "POST", headers: { Authorization: token } })
+}
