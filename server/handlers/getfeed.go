@@ -11,8 +11,8 @@ func GetFeed(c *gin.Context) {
 	if !exits {
 		c.JSON(400,gin.H{"msg":"Invalid request"})
 	} else {
-		feed:=make([]models.UserFeed,1)
-		result:=database.DB.Where("name=?",Name).Find(&feed)
+		feed:=make([]models.LoginFeed,1)
+		result:=database.DB.Joins("Join user_feeds on user_feeds.feed=feeds.feed").Where("Name=?",Name).Find(&feed)
 		
 		if result.RowsAffected==0{
 			c.JSON(200,gin.H{"msg":"No feed created,try to add an rssfeed "})
