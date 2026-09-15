@@ -23,3 +23,7 @@ export function createFeed(name: string, feed: string, url: string, token: strin
 export function logout(token: string) {
   return request<{ success?: string }>("/logout", { method: "POST", headers: { Authorization: token } })
 }
+
+export function getFeeds(token: string) {
+  return request<{ feed?: string[]; msg?: string }>("/getFeed", { method: "GET", headers: { Authorization: token } })
+}

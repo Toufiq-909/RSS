@@ -6,8 +6,6 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-
-
 	"server/handlers"
 	"server/middleware"
 )
@@ -31,7 +29,7 @@ func Router() *gin.Engine {
 	router.POST("/logout", handlers.Logout)
 	router.DELETE("/delete", handlers.DeleteUser)
 	router.POST("/feed", handlers.Addfeed)
-	router.GET("/getFeed",handlers.GetFeed)
+	router.GET("/getFeed", handlers.GetFeed)
 
 	return router
 }
